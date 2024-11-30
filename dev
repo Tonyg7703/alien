@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+alien.dev() {
+	local _PWD="$PWD"
+	cd "$ALIEN_DIR" || exit
+
+	case "$1" in
+	build)
+		# Build
+		echo "🔨 Alien is Building Itself ..."
+		source "./build.bash"
+		;;
+	test)
+		# Test
+		echo "🧪 Alien is Testing ..."
+		echo "testing is not implemented yet"
+		;;
+	watch)
+		echo "🧪👁️ Alien Started Watching ..."
+		source "./watch.bash"
+		;;
+	*)
+		# Default
+		echo "👽 Alien index"
+		;;
+
+	esac
+
+	cd "$_PWD" || exit
+}
+
+alien.dev "$@"
