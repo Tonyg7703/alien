@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+# Switch to the current directory
+_PWD="$PWD"
+_CURRENT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$_CURRENT_DIR" || exit
+
+# Environment Variables
+export ALIEN_DIR="$_CURRENT_DIR"
+export ALIEN_CACHE_DIR="$ALIEN_DIR/cache"
+export ALIEN_BIN_DIR="$ALIEN_DIR/bin"
+export ALIEN_MODULES_DIR="$ALIEN_DIR/modules"
+
+# Create the directories
+mkdir -p "$ALIEN_BIN_DIR"
+mkdir -p "$ALIEN_MODULES_DIR"
+
+# Create a symlink of alien in bin directory
+if [ ! -L "$ALIEN_BIN_DIR/alien" ]; then
+	ln -s "$ALIEN_DIR/alien" "$ALIEN_BIN_DIR/alien"
+fi
+
+# Create an symlink of alien in bin directory
+if [ ! -L "$ALIEN_BIN_DIR/alien.dev" ]; then
+	ln -s "$ALIEN_DIR/dev" "$ALIEN_BIN_DIR/alien.dev"
+fi
+
+# Add the bin directory to the path
+if [[ ! "$PATH" == *"$ALIEN_BIN_DIR:"* ]]; then
+	export PATH="$ALIEN_BIN_DIR:$PATH"
+fi
+
+# Make all scripts in bin executable
+chmod +x "$ALIEN_BIN_DIR"/*
+
+# If bin directory is empty
+(source "$ALIEN_DIR/build.bash" && alien.build)
+
+# Switch back to the previous directory
+unset -v _CURRENT_DIR
+cd "$_PWD" && unset -v _PWD || exit
