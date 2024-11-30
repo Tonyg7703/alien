@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+xxx() {
+  echo "👽 alien.dev is ready 💅"
+}
