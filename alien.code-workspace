@@ -1,0 +1,23 @@
+{
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "extensions": {
+    "recommendations": [
+      "foxundermoon.shell-format", // shell script formatter
+      "christian-kohler.path-intellisense" // auto complete path
+    ]
+  },
+  "settings": {
+    "editor.formatOnSave": true,
+    "[bat]": {
+      "editor.defaultFormatter": "foxundermoon.shell-format"
+    },
+    "[shellscript]": {
+      "editor.defaultFormatter": "foxundermoon.shell-format"
+    }
+    
+  }
+}
